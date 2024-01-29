@@ -28,7 +28,7 @@
  * will be copied.  Always NUL terminates (unless siz == 0).
  * Returns strlen(src); if retval >= siz, truncation occurred.
  */
-size_t strlcpy(char *dst, const char *src, size_t size) {
+size_t _strlcpy(char *dst, const char *src, size_t size) {
 	char *d = dst;
 	const char *s = src;
 	size_t n = size;
@@ -97,13 +97,13 @@ int parse_opt(int *argc, char **argv, program_options_t *options){
 				options->mtu = atoi(optarg);
 				break;
 			case 'd':
-				strlcpy(options->direction_string, optarg, sizeof(options->direction_string));
+				_strlcpy(options->direction_string, optarg, sizeof(options->direction_string));
 				break;
 			case 'u':
-				strlcpy(options->user, optarg, sizeof(options->user));
+				_strlcpy(options->user, optarg, sizeof(options->user));
 				break;
 			case 'p':
-				strlcpy(options->password, optarg, sizeof(options->password));
+				_strlcpy(options->password, optarg, sizeof(options->password));
 				break;
 			case 'h':
 				print_help();
@@ -115,9 +115,9 @@ int parse_opt(int *argc, char **argv, program_options_t *options){
 	}
 	if (*argc - optind == 1){
 		if ((pch = strtok(argv[optind], ":")) != NULL){
-			strlcpy(options->host, pch, sizeof(options->host));
+			_strlcpy(options->host, pch, sizeof(options->host));
 			if((pch = strtok(NULL, ":")) != NULL)
-				strlcpy(options->port, pch, sizeof(options->port));
+				_strlcpy(options->port, pch, sizeof(options->port));
 		}
 		else
 			return RETURN_ERROR;

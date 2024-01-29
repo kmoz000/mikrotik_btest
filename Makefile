@@ -1,11 +1,11 @@
 CC ?= gcc
 CFLAGS ?= -W -Wall -s -Os -ffunction-sections -fdata-sections
-LDFLAGS ?= -s -Wl,--gc-sections
-LDLIBS += -lpthread -lrt
+LDFLAGS ?= -s -Wl
+LDLIBS += -lpthread
 
-all: mikrotik_btest
+all: client
 	
-mikrotik_btest: main.o parse_opt.o tcptest_thread.o tcptest.o messages.o md5.o utils.o
+client: main.o parse_opt.o tcptest_thread.o tcptest.o messages.o md5.o utils.o
 	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 main.o: main.c
